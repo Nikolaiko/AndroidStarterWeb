@@ -5,10 +5,8 @@ class ThemeColorFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: Colors.white,
-      ),
+    return Container(
+      color: Colors.white,
     );
   }
 }
