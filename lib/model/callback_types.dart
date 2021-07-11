@@ -1,0 +1,1 @@
+typedef void StringChangeCallback(String newString);

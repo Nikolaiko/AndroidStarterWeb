@@ -1,4 +1,6 @@
 import 'package:android_starter_web/model/states/main_screen_state.dart';
+import 'package:android_starter_web/model/states/setup_project_state.dart';
+import 'package:android_starter_web/screens/widgets/elements/simple_text_button.dart';
 import 'package:android_starter_web/screens/widgets/project_settings_frames/project_configuration_frame.dart';
 import 'package:android_starter_web/screens/widgets/project_settings_frames/project_dependencies_frame.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +11,41 @@ class ProjectSettingsFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainScreenState state = Provider.of<MainScreenState>(context);
-    return Row(
+    MainScreenState screenState = Provider.of<MainScreenState>(context);
+    SetupProjectState projectState = Provider.of<SetupProjectState>(context);
+    return Column(      
       children: [
-        Flexible(
-          flex: 1,
-          child: ProjectConfigurationFrame(
-            state.mainBackgroundColor
+        Expanded(
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
+                child: ProjectConfigurationFrame(
+                  screenState.mainBackgroundColor
+                ),
+              ),
+              VerticalDivider(),
+              Flexible(
+                flex: 1,                  
+                child: ProjectDepedenciesFrame(),
+              )
+            ]
           ),
         ),
-        VerticalDivider(),
-        Flexible(
-          flex: 1,                  
-          child: ProjectDepedenciesFrame(),
+        Container(
+          color: Colors.grey[200],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: SimpleTextButton(
+                  "GENERATE", 
+                  onPress: projectState.generateProject
+                ),
+              )
+            ]
+          ),
         )
       ]
     );

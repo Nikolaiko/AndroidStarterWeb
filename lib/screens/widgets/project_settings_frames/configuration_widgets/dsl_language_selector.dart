@@ -1,7 +1,9 @@
+import 'package:android_starter_web/model/consts/common_styles.dart';
 import 'package:android_starter_web/model/enum/dsl_language_enum.dart';
 import 'package:flutter/material.dart';
 
 class DSLLanguageSelector extends StatefulWidget {
+  static const String _selectorTitle = "DSL Language";
   const DSLLanguageSelector({ Key? key }) : super(key: key);
 
   @override
@@ -17,7 +19,10 @@ class _DSLLanguageSelectorState extends State<DSLLanguageSelector> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Dsl Language"),
+          const Text(
+            DSLLanguageSelector._selectorTitle,
+            style: titleTextStyle,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
