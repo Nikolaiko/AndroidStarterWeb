@@ -8,6 +8,8 @@ part of 'project_settings.dart';
 
 ProjectSettings _$ProjectSettingsFromJson(Map<String, dynamic> json) {
   return ProjectSettings(
+    projectName: json['projectName'] as String,
+    projectPackage: json['projectPackage'] as String,
     dslLanguage: json['dslLanguage'] as String,
   );
 }
@@ -15,4 +17,6 @@ ProjectSettings _$ProjectSettingsFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ProjectSettingsToJson(ProjectSettings instance) =>
     <String, dynamic>{
       'dslLanguage': instance.dslLanguage,
+      'projectName': instance.projectName,
+      'projectPackage': instance.projectPackage,
     };

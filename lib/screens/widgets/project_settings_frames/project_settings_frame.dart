@@ -18,36 +18,46 @@ class ProjectSettingsFrame extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              Flexible(
-                flex: 1,
-                child: ProjectConfigurationFrame(
-                  screenState.mainBackgroundColor
-                ),
-              ),
+              _buildConfigurationFrame(screenState.mainBackgroundColor),
               VerticalDivider(),
-              Flexible(
-                flex: 1,                  
-                child: ProjectDepedenciesFrame(),
-              )
+              _buildDependencesFrame(screenState.mainBackgroundColor)
             ]
           ),
         ),
-        Container(
-          color: Colors.grey[200],
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: SimpleTextButton(
-                  "GENERATE", 
-                  onPress: projectState.generateProject
-                ),
-              )
-            ]
-          ),
-        )
+        _buildBottomRow(projectState)
       ]
+    );
+  }
+
+  Widget _buildDependencesFrame(Color backColor) {
+    return Flexible(
+      flex: 1,                  
+      child: ProjectDepedenciesFrame()
+    );
+  }
+
+  Widget _buildConfigurationFrame(Color backColor) {
+    return Flexible(
+      flex: 1,
+      child: ProjectConfigurationFrame(backColor)
+    );
+  }
+
+  Widget _buildBottomRow(SetupProjectState state) {
+    return Container(
+      color: Colors.grey[200],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: SimpleTextButton(
+              "GENERATE", 
+              onPress: state.generateProject
+            ),
+          )
+        ]
+      )
     );
   }
 }
