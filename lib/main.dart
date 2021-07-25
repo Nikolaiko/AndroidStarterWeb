@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:android_starter_web/model/consts/common_styles.dart';
+import 'package:android_starter_web/model/project_settings/dependencies_group.dart';
 import 'package:android_starter_web/model/states/main_screen_state.dart';
+import 'package:android_starter_web/screens/loading_screen.dart';
 import 'package:android_starter_web/screens/main_screen.dart';
+import 'package:android_starter_web/service/di_service.dart';
 import 'package:android_starter_web/service/http_network_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -22,21 +27,49 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         dividerColor: dividersColor,
-        dividerTheme: DividerThemeData(
+        dividerTheme: const DividerThemeData(
           color: dividersColor,
           thickness: dividersThickness,
           space: dividersThickness
         )
       ),
-      home: ChangeNotifierProvider<MainScreenState>(
-        create: (context) {
-          final state = MainScreenState();      
-          return state;
+      home: FutureBuilder(
+        future: _prepareData(context),
+        builder: (context, snapshot) {
+          return snapshot.connectionState == ConnectionState.done
+            ? _buildMainScreen(context)
+            : const LoadingScreen();
         },
-        child: Consumer<MainScreenState>(
-          builder: (context, value, child) => MainScreen()
-        )
+      )            
+    );
+  }
+
+  Widget _buildMainScreen(BuildContext context) {
+    return ChangeNotifierProvider<MainScreenState>(
+      create: (context) {
+        return MainScreenState();                
+      },
+      child: Consumer<MainScreenState>(
+        builder: (context, value, child) => MainScreen()
       )
     );
   }
+
+  Future<void> _prepareData(BuildContext context) async {
+    List<DependenciesGroup> result = List.empty(growable: true);
+    String jsonString = await DefaultAssetBundle.of(context).loadString("di/di.json");
+
+    try {
+      Map<String, dynamic> map = json.decode(jsonString) as Map<String, dynamic>;      
+      List<dynamic> groups =  map["values"] as List<dynamic>;      
+    
+      groups.forEach((dynamic element) {         
+        result.add(DependenciesGroup.fromJson(element as Map<String, dynamic>));
+      });
+    } catch (error) {
+      print(error);
+    }
+
+    GetIt.instance.registerSingleton<DiService>(DiService(result));    
+  } 
 }

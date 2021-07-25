@@ -7,7 +7,7 @@ class HorizontalDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenDimensions dimensions = ScreenDimensions(context);
+    final ScreenDimensions dimensions = ScreenDimensions(context);
     return Divider(
       indent: dimensions.width * sideInsetsCoff,
       endIndent: dimensions.width * sideInsetsCoff
