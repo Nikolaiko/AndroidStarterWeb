@@ -14,7 +14,7 @@ class ProjectDepedenciesFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SetupProjectState state = Provider.of<SetupProjectState>(context);
-    ScreenDimensions dimensions = ScreenDimensions(context);
+    final ScreenDimensions dimensions = ScreenDimensions(context);
     return Container(      
       child: Column(        
         children: [
@@ -39,14 +39,14 @@ class ProjectDepedenciesFrame extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Dependeces"),
+          const Text("Dependeces", style: titleTextStyle),
           SimpleTextButton(
             "ADD DEPENDENCES",
             onPress: () {
               showDialog(
                 barrierDismissible: true,
                 context: context, 
-                builder: (buildContext) {
+                builder: (_) {
                   return DependenciesDialog(state);
                 }
               );

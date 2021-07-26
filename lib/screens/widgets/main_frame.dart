@@ -12,7 +12,7 @@ class MainFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {    
-    MainScreenState state = Provider.of<MainScreenState>(context);
+    final MainScreenState state = Provider.of<MainScreenState>(context);
     return Container(      
       color: state.mainBackgroundColor,
         child: Column(

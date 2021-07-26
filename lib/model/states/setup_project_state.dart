@@ -36,7 +36,8 @@ class SetupProjectState with ChangeNotifier {
       ProjectSettings(
         dslLanguage: DslLanguage.groovy.toLanguageName(),
         projectName: _projectName,
-        projectPackage: _package
+        projectPackage: _package,
+        dependencies: _dependencies
       )
     );
   }

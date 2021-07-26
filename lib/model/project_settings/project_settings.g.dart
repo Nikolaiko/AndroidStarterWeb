@@ -11,6 +11,9 @@ ProjectSettings _$ProjectSettingsFromJson(Map<String, dynamic> json) {
     projectName: json['projectName'] as String,
     projectPackage: json['projectPackage'] as String,
     dslLanguage: json['dslLanguage'] as String,
+    dependencies: (json['dependencies'] as List<dynamic>)
+        .map((e) => ProjectDependencie.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -19,4 +22,5 @@ Map<String, dynamic> _$ProjectSettingsToJson(ProjectSettings instance) =>
       'dslLanguage': instance.dslLanguage,
       'projectName': instance.projectName,
       'projectPackage': instance.projectPackage,
+      'dependencies': instance.dependencies,
     };

@@ -10,8 +10,10 @@ analyzer:
   errors:
     # treat missing required parameters as a warning (not a hint)
     missing_required_param: warning
-    # treat missing returns as a warning (not a hint)
+    # treat missing returns as a warning (not a hint)    
     missing_return: warning
+
+    prefer_single_quotes: ignore
     native_function_body_in_non_sdk_code: ignore
     implicit_dynamic_function: ignore
     public_member_api_docs: ignore

@@ -56,8 +56,8 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> _prepareData(BuildContext context) async {
-    List<DependenciesGroup> result = List.empty(growable: true);
-    String jsonString = await DefaultAssetBundle.of(context).loadString("di/di.json");
+    final List<DependenciesGroup> result = List.empty(growable: true);
+    final String jsonString = await DefaultAssetBundle.of(context).loadString("di/di.json");
 
     try {
       Map<String, dynamic> map = json.decode(jsonString) as Map<String, dynamic>;      
