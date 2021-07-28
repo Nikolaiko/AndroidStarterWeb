@@ -16,6 +16,7 @@ dependencies:
   get_it: ^7.0.0
   provider: ^5.0.0
   http: ^0.13.1
+  url_launcher: ^6.0.9
 
   json_annotation: ^4.0.1
 

@@ -3,6 +3,7 @@ import 'dart:js' as js;
 
 import 'package:android_starter_web/model/project_settings/project_dependencie.dart';
 import 'package:android_starter_web/model/project_settings/project_settings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HttpNetworkService {
   static const String _baseAddress = "http://81.177.6.197:49160/build/project";
@@ -19,11 +20,15 @@ class HttpNetworkService {
       }
     }
 
-    js.context.callMethod("open",
-      List<String>.filled(
-        1, 
-        "$_baseAddress?type=${settings.dslLanguage}&name=${settings.projectName}&groupId=${settings.projectPackage}&dependencies=$dependenciesString"
-      )
-    );
+
+    final String _url = "$_baseAddress?type=${settings.dslLanguage}&name=${settings.projectName}&groupId=${settings.projectPackage}&dependencies=$dependenciesString";
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+
+    // js.context.callMethod("open",
+    //   List<String>.filled(
+    //     1, 
+    //     _url
+    //   )
+    // );
   }
 }
