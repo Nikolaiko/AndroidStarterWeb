@@ -13,6 +13,7 @@ class SetupProjectState with ChangeNotifier {
   List<ProjectDependencie> _dependencies = 
           List<ProjectDependencie>.empty(growable: true);
 
+  bool get projectReady => _projectName.isNotEmpty && _package.isNotEmpty;
   String get projectName => _projectName;
   String get package => _package;
   List<ProjectDependencie> get addedDependencies => _dependencies;
@@ -22,13 +23,11 @@ class SetupProjectState with ChangeNotifier {
   SetupProjectState(this._networkService);
 
   void updateName(String newName) {
-    _projectName = newName;
-    notifyListeners();
+    _projectName = newName;    
   }
 
   void updatePackage(String newPackage) {
-    _package = newPackage;
-    notifyListeners();
+    _package = newPackage;    
   }
 
   void generateProject() {

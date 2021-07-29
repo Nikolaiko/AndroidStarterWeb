@@ -11,26 +11,26 @@ class ProjectSettingsFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainScreenState screenState = Provider.of<MainScreenState>(context);
-    SetupProjectState projectState = Provider.of<SetupProjectState>(context);
+    final MainScreenState screenState = Provider.of<MainScreenState>(context);
+    final SetupProjectState projectState = Provider.of<SetupProjectState>(context);
     return Column(      
       children: [
         Expanded(
           child: Row(
             children: [
               _buildConfigurationFrame(screenState.mainBackgroundColor),
-              VerticalDivider(),
+              const VerticalDivider(),
               _buildDependencesFrame(screenState.mainBackgroundColor)
             ]
           ),
         ),
-        _buildBottomRow(projectState)
+        _buildBottomRow(projectState, context)
       ]
     );
   }
 
   Widget _buildDependencesFrame(Color backColor) {
-    return Flexible(
+    return const Flexible(
       flex: 1,                  
       child: ProjectDepedenciesFrame()
     );
@@ -43,7 +43,10 @@ class ProjectSettingsFrame extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomRow(SetupProjectState state) {
+  Widget _buildBottomRow(
+    SetupProjectState state,
+    BuildContext context
+    ) {
     return Container(
       color: Colors.grey[200],
       child: Row(
@@ -53,11 +56,30 @@ class ProjectSettingsFrame extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: SimpleTextButton(
               "GENERATE", 
-              onPress: state.generateProject
+              onPress: () => _generateButtonTap(state, context)
             ),
           )
         ]
       )
     );
+  }
+
+  void _generateButtonTap(
+    SetupProjectState state,
+    BuildContext context) {
+
+    if (state.projectReady) {
+      state.generateProject();
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("Error"),
+            content: Text("Set project name and package")  
+          );
+        }
+      );
+    }
   }
 }

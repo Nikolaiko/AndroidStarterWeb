@@ -21,10 +21,10 @@ class ProjectConfigurationFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SetupProjectState state = Provider.of<SetupProjectState>(context);
-    ScreenDimensions dimensions = ScreenDimensions(context);
-    EdgeInsets rowInsets = EdgeInsets.all(dimensions.width * sideInsetsCoff);
-    SizedBox insetSpace = SizedBox(width: dimensions.width * 0.01);
+    final SetupProjectState state = Provider.of<SetupProjectState>(context, listen: false);
+    final ScreenDimensions dimensions = ScreenDimensions(context);
+    final EdgeInsets rowInsets = EdgeInsets.all(dimensions.width * sideInsetsCoff);
+    final SizedBox insetSpace = SizedBox(width: dimensions.width * 0.01);
 
     return Container(
       color: _backColor,
